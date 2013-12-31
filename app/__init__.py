@@ -5,6 +5,7 @@ from flask.ext.moment import Moment
 from flask.ext.sqlalchemy import SQLAlchemy
 from flask.ext.login import LoginManager
 from flask.ext.gravatar import Gravatar
+from flask.ext.pagedown import PageDown
 from config import config
 
 bootstrap = Bootstrap()
@@ -12,6 +13,7 @@ mail = Mail()
 moment = Moment()
 db = SQLAlchemy()
 gravatar = Gravatar(rating='g', default='identicon')
+pagedown = PageDown()
 
 login_manager = LoginManager()
 login_manager.session_protection = 'strong'
@@ -29,6 +31,7 @@ def create_app(config_name):
     db.init_app(app)
     login_manager.init_app(app)
     gravatar.init_app(app)
+    pagedown.init_app(app)
 
     from .main import main as main_blueprint
     app.register_blueprint(main_blueprint)
