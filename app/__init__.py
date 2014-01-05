@@ -1,3 +1,4 @@
+import os
 from flask import Flask
 from flask.ext.bootstrap import Bootstrap
 from flask.ext.mail import Mail
@@ -32,6 +33,10 @@ def create_app(config_name):
     login_manager.init_app(app)
     gravatar.init_app(app)
     pagedown.init_app(app)
+
+    if not app.debug and not app.testing and not os.getenv('SSL_DISABLE'):
+        from flask.ext.sslify import SSLify
+        sslify = SSLify(app)
 
     from .main import main as main_blueprint
     app.register_blueprint(main_blueprint)
